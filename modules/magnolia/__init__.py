@@ -13,12 +13,14 @@ def reload():
 
 
 __all__ = [
+    "animation",
     "objects",
     "scene",
     "visibility",
 ]
 
 
+from .animation import *
 from .objects import *
 from .scene import *
 from .visibility import *
