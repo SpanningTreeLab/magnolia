@@ -14,6 +14,9 @@ def reload():
 
 __all__ = [
     "animation",
+    "material",
+    "mesh",
+    "modifier",
     "objects",
     "scene",
     "visibility",
@@ -21,6 +24,9 @@ __all__ = [
 
 
 from .animation import *
+from .material import *
+from .mesh import *
+from .modifier import *
 from .objects import *
 from .scene import *
 from .visibility import *
