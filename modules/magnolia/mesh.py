@@ -5,7 +5,7 @@ import bpy
 from bpy.types import Object
 
 from .objects import ObjectArg, resolve_object
-from .scene import CollectionArg, resolve_collection
+from .scene import CollectionArg, resolve_collection, selection
 
 
 # A vertex is represented as a tuple of (x, y, z)
@@ -21,13 +21,14 @@ Face = tuple[int, ...]
 MeshData = tuple[list[Vertex], list[Edge], list[Face]]
 
 
-def object_to_mesh_data(arg: ObjectArg) -> MeshData:
+def object_to_mesh_data(arg: Optional[ObjectArg] = None) -> MeshData:
     """
     Return the mesh data associated with an object.
 
-    Arguments:
+    Optional arguments:
 
-    - `arg`: The object whose mesh data should be returned
+    - `arg`: The object whose mesh data should be returned. Defaults to current
+      selection.
 
     Returns:
 
@@ -35,7 +36,7 @@ def object_to_mesh_data(arg: ObjectArg) -> MeshData:
     - `edges`: List of edges, each a tuple pair of vertex indices
     - `faces`: List of faces, each a tuple of vertex indices
     """
-    obj = resolve_object(arg)
+    obj = resolve_object(arg or selection())
     mesh = obj.data
     vertices = [vertex.co[:] for vertex in mesh.vertices]
     edges = [edge.vertices[:] for edge in mesh.edges]
