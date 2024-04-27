@@ -29,18 +29,23 @@ def assign_material(arg: ObjectArg, material: bpy.types.Material):
 
 
 def create_bsdf_material(
-    name: str, config: PrincipledBSDFMaterialConfig
+    name: str,
+    config: PrincipledBSDFMaterialConfig,
+    shadow: str = "OPAQUE",
 ) -> bpy.types.Material:
     material = bpy.data.materials.new(name=name)
     material.use_nodes = True
     bsdf = material.node_tree.nodes["Principled BSDF"]
     for key, value in config.items():
         bsdf.inputs[key].default_value = value
+    material.shadow_method = shadow
     return material
 
 
 def get_or_create_bsdf_material(
-    name: str, config: PrincipledBSDFMaterialConfig
+    name: str,
+    config: PrincipledBSDFMaterialConfig,
+    shadow: str = "OPAQUE",
 ) -> bpy.types.Material:
     """
     Gets an existing material or creates it from a configuration if needed.
@@ -48,4 +53,4 @@ def get_or_create_bsdf_material(
     material = bpy.data.materials.get(name)
     if material is not None:
         return material
-    return create_bsdf_material(name, config)
+    return create_bsdf_material(name, config, shadow=shadow)

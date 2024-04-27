@@ -46,7 +46,7 @@ def object_to_mesh_data(arg: Optional[ObjectArg] = None) -> MeshData:
 
 def create_object_from_mesh_data(
     data: MeshData,
-    name: Optional[str] = None,
+    name: str,
     collection: Optional[CollectionArg] = None,
     shade_flat: bool = False,
 ) -> Object:
@@ -56,10 +56,10 @@ def create_object_from_mesh_data(
     Arguments:
 
     - `data`: The mesh data for the new object
+    - `name`: The name for the new object
 
     Optional arguments:
 
-    - `name`: The name for the new object
     - `collection`: The collection to link the new object to
     - `shade_flat`: Whether to shade flat or smooth
 

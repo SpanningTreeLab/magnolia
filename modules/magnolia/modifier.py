@@ -62,3 +62,27 @@ def apply_shrinkwrap(
     modifier = obj.modifiers.new(name or "Shrinkwrap", "SHRINKWRAP")
     modifier.target = resolve_object(target_arg)
     modifier.offset = offset
+
+
+def apply_hook(
+    arg: ObjectArg,
+    target_arg: ObjectArg,
+    name: Optional[str] = None,
+    vertex_indices: Optional[list[int]] = None,
+) -> bpy.types.HookModifier:
+    obj = resolve_object(arg)
+    target = resolve_object(target_arg)
+    modifier = obj.modifiers.new(name or "Hook", "HOOK")
+    modifier.object = target
+    if vertex_indices:
+        modifier.vertex_indices_set(vertex_indices)
+    return modifier
+
+
+def apply_skin(
+    arg: ObjectArg,
+    name: Optional[str] = None,
+) -> bpy.types.SkinModifier:
+    obj = resolve_object(arg)
+    modifier = obj.modifiers.new(name or "Skin", "SKIN")
+    return modifier
