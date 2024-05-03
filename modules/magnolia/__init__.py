@@ -15,6 +15,7 @@ def reload():
 __all__ = [
     "animation",
     "constraint",
+    "geonodes",
     "location",
     "material",
     "mesh",
@@ -27,6 +28,7 @@ __all__ = [
 
 from .animation import *
 from .constraint import *
+from .geonodes import *
 from .location import *
 from .material import *
 from .mesh import *

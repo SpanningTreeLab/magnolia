@@ -70,12 +70,54 @@ def apply_hook(
     name: Optional[str] = None,
     vertex_indices: Optional[list[int]] = None,
 ) -> bpy.types.HookModifier:
+    """
+    Applies a hook modifier. Hooks an object (or particular vertices on that object) to a target.
+
+    Arguments:
+
+    - `arg`: The object for which to add a hook modifier
+    - `target_arg`: The object that should be targeted by the hook
+
+    Optional arguments:
+
+    - `name`: Name for the modifier, default to "Hook"
+    -` vertex_indices`: List of vertex indices to hook
+    """
     obj = resolve_object(arg)
     target = resolve_object(target_arg)
     modifier = obj.modifiers.new(name or "Hook", "HOOK")
     modifier.object = target
     if vertex_indices:
         modifier.vertex_indices_set(vertex_indices)
+    return modifier
+
+
+def apply_bevel(
+    arg: ObjectArg,
+    name: Optional[str] = None,
+    amount: float = 0.1,
+    affect: str = "EDGES",  # "VERTICES" or "EDGES"
+    segments: int = 4,
+) -> bpy.types.BevelModifier:
+    """
+    Applies a bevel modifier.
+
+    Arguments:
+
+    - `arg`: The object for which to add a bevel modifier
+
+    Optional arguments:
+
+    - `name`: Name for the modifier, default to "Bevel"
+    - `amount`: Width of the bevel
+    - `affect`: Whether to round edges of vertices, must be "VERTICES" or "EDGES", defaults "EDGES"
+    - `segments`: Number of segments to include in bevel
+    """
+    obj = resolve_object(arg)
+    modifier = obj.modifiers.new(name or "Bevel", "BEVEL")
+    modifier.affect = affect
+    modifier.width = amount
+    modifier.segments = segments
     return modifier
 
 
