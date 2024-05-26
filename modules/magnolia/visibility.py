@@ -89,7 +89,7 @@ def show_now(arg: Optional[ObjectArg] = None, children: bool = True):
     show_at(obj, current_frame(), children)
 
 
-def hide_now(arg: Optional[ObjectArg], children: bool = True):
+def hide_now(arg: Optional[ObjectArg] = None, children: bool = True):
     """
     Animates an object to hide at the current frame.
 
