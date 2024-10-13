@@ -1,7 +1,7 @@
 from typing import Optional
 
-from .objects import ObjectArg, resolve_object
-from .scene import current_frame, selection
+from .objects import ObjectArg, ObjectsArg, resolve_object, resolve_objects
+from .scene import current_frame, selection, selections
 
 
 def toggle_object_visibility(
@@ -75,7 +75,7 @@ def hide_at(arg: ObjectArg, frame: int, children: bool = True):
     toggle_object_visibility(arg, frame, False, children)
 
 
-def show_now(arg: Optional[ObjectArg] = None, children: bool = True):
+def show_now(arg: Optional[ObjectsArg] = None, children: bool = True):
     """
     Animates an object to appear at the current frame.
 
@@ -85,11 +85,12 @@ def show_now(arg: Optional[ObjectArg] = None, children: bool = True):
     - `children`: Whether children of the object should also have visibility animated, defaults to
       `True`
     """
-    obj = arg if arg is not None else selection()
-    show_at(obj, current_frame(), children)
+    objs = resolve_objects(arg) if arg is not None else selections()
+    for obj in objs:
+      show_at(obj, current_frame(), children)
 
 
-def hide_now(arg: Optional[ObjectArg] = None, children: bool = True):
+def hide_now(arg: Optional[ObjectsArg] = None, children: bool = True):
     """
     Animates an object to hide at the current frame.
 
@@ -99,5 +100,6 @@ def hide_now(arg: Optional[ObjectArg] = None, children: bool = True):
     - `children`: Whether children of the object should also have visibility animated, defaults to
       `True`
     """
-    obj = arg if arg is not None else selection()
-    hide_at(obj, current_frame(), children)
+    objs = resolve_objects(arg) if arg is not None else selections()
+    for obj in objs:
+      hide_at(obj, current_frame(), children)
