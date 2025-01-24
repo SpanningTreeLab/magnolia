@@ -1,20 +1,28 @@
-from typing import Optional, Union
+from typing import cast, Optional, Union
 
 import bpy
 
 from bpy.types import Object
 
-from .scene import CollectionArg, resolve_collection
+from magnolia.scene import CollectionArg, resolve_collection
 
 
-# An object argument can be that object's identifier, or the object itself
 ObjectArg = Union[str, Object]
+"""
+An object argument is an object's unique identifier or the object itself.
+Most Magnolia functions that work with objects accept an ObjectArg.
+"""
 
-# An object argument, or a list of object arguments
 ObjectsArg = Union[ObjectArg, list[ObjectArg]]
+"""
+A single object argument, or a list of object arguments.
+"""
 
-# A scale argument could be a (x, y, z) scale tuple, or an x value for scale (x, x, x)
 ScaleArg = Union[tuple[float, float, float], float]
+"""
+Represents a scale. Could be a (x, y, z) scale tuple, or a single
+value x representing scale (x, x, x).
+"""
 
 
 def resolve_object(arg: ObjectArg) -> Object:
@@ -90,7 +98,7 @@ def copy_object(
 
     # Copy the object and its mesh data
     obj = template_obj.copy()
-    obj.data = template_obj.data.copy()
+    obj.data = cast(bpy.types.Mesh, template_obj.data).copy()
 
     # Link the object to the new collection
     coll = resolve_collection(collection)

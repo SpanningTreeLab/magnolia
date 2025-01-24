@@ -14,25 +14,13 @@ def reload():
 
 __all__ = [
     "animation",
-    "constraint",
-    "geonodes",
-    "location",
-    "material",
-    "mesh",
-    "modifier",
     "objects",
     "scene",
-    "visibility",
 ]
 
 
 from .animation import *
-from .constraint import *
-from .geonodes import *
-from .location import *
-from .material import *
-from .mesh import *
-from .modifier import *
 from .objects import *
 from .scene import *
-from .visibility import *
+
+from . import slide

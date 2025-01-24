@@ -1,2 +1,6 @@
-__pycache__/
 .DS_Store
+
+# Python
+__pycache__/
+.mypy_cache
+*.egg-info

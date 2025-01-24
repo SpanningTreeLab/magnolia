@@ -1,7 +1,7 @@
-from typing import Optional
+from typing import cast, Optional
 
-from .objects import ObjectsArg, resolve_object
-from .scene import current_frame, selections
+from ..objects import ObjectArg, ObjectsArg, resolve_object
+from ..scene import current_frame, selections
 from .visibility import show_at, hide_at
 
 
@@ -27,7 +27,7 @@ def pop_in(
 
     # Use selected objects as default
     if args is None:
-        args = selections()
+        args = cast(list[ObjectArg], selections())
 
     # If we have a list of objects, animate each with a delay
     if isinstance(args, list):
@@ -40,7 +40,7 @@ def pop_in(
         return
 
     # We know we have a single object now, so resolve it
-    obj = resolve_object(args)
+    obj = resolve_object(cast(ObjectArg, args))
 
     # Animate starting position
     show_at(obj, frame)
@@ -78,7 +78,7 @@ def pop_out(
 
     # Use selected objects as default
     if args is None:
-        args = selections()
+        args = cast(list[ObjectArg], selections())
 
     # If we have a list of objects, animate each with a delay
     if isinstance(args, list):

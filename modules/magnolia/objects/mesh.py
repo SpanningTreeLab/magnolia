@@ -1,11 +1,11 @@
-from typing import Optional
+from typing import cast, Optional
 
 import bpy
 
 from bpy.types import Object
 
+from ..scene import CollectionArg, resolve_collection, selection
 from .objects import ObjectArg, resolve_object
-from .scene import CollectionArg, resolve_collection, selection
 
 
 # A vertex is represented as a tuple of (x, y, z)
@@ -37,11 +37,11 @@ def object_to_mesh_data(arg: Optional[ObjectArg] = None) -> MeshData:
     - `faces`: List of faces, each a tuple of vertex indices
     """
     obj = resolve_object(arg or selection())
-    mesh = obj.data
+    mesh = cast(bpy.types.Mesh, obj.data)
     vertices = [vertex.co[:] for vertex in mesh.vertices]
     edges = [edge.vertices[:] for edge in mesh.edges]
     faces = [face.vertices[:] for face in mesh.polygons]
-    return vertices, edges, faces
+    return vertices, edges, faces  # pyright: ignore
 
 
 def create_object_from_mesh_data(

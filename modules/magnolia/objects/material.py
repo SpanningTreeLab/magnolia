@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import cast, TypedDict, Union
 
 import bpy
 
@@ -22,10 +22,11 @@ PrincipledBSDFMaterialConfig = TypedDict(
 
 def assign_material(arg: ObjectArg, material: bpy.types.Material):
     obj = resolve_object(arg)
-    if obj.data.materials:
-        obj.data.materials[0] = material
+    mesh = cast(bpy.types.Mesh, obj.data)
+    if mesh.materials:
+        mesh.materials[0] = material
     else:
-        obj.data.materials.append(material)
+        mesh.materials.append(material)
 
 
 def create_bsdf_material(
@@ -35,30 +36,31 @@ def create_bsdf_material(
 ) -> bpy.types.Material:
     material = bpy.data.materials.new(name=name)
     material.use_nodes = True
-    bsdf = material.node_tree.nodes["Principled BSDF"]
+    bsdf = cast(bpy.types.ShaderNodeTree, material.node_tree).nodes["Principled BSDF"]
     for key, value in config.items():
-        bsdf.inputs[key].default_value = value
-    material.shadow_method = shadow
+        bsdf.inputs[key].default_value = value  # pyright: ignore
+    material.shadow_method = shadow  # pyright: ignore
     return material
 
 
 def create_emission_material(
     name: str,
-    color: tuple[float, float, float, tuple],
+    color: Union[tuple[float, float, float], tuple[float, float, float, tuple]],
     shadow: str = "OPAQUE",  # "OPAQUE" or "NONE"
 ) -> bpy.types.Material:
     material = bpy.data.materials.new(name=name)
     material.use_nodes = True
 
     # Create a new emission node
-    emission_node = material.node_tree.nodes.new("ShaderNodeEmission")
-    emission_node.inputs["Color"].default_value = color
-    material.shadow_method = shadow
+    node_tree = cast(bpy.types.ShaderNodeTree, material.node_tree)
+    emission_node = node_tree.nodes.new("ShaderNodeEmission")
+    emission_node.inputs["Color"].default_value = color  # pyright: ignore
+    material.shadow_method = shadow  # pyright: ignore
 
     # Link emission node to material output
-    material.node_tree.links.new(
+    node_tree.links.new(
         emission_node.outputs["Emission"],
-        material.node_tree.nodes["Material Output"].inputs["Surface"],
+        node_tree.nodes["Material Output"].inputs["Surface"],
     )
 
     return material

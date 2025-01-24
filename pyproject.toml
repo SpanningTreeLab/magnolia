@@ -1,0 +1,22 @@
+[project]
+name = "magnolia"
+version = "0.2.0"
+description = "A Python library for developing 2D and 3D animated videos with Blender"
+authors = [
+    {name = "Brian Yu", email = "brian@brianyu.me"}
+]
+requires-python = ">=3.9"
+dependencies = [
+    "fake-bpy-module >= 20250123",
+]
+
+[project.urls]
+homepage = "https://github.com/SpanningTreeLab/magnolia"
+repository = "https://github.com/SpanningTreeLab/magnolia"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["modules"]

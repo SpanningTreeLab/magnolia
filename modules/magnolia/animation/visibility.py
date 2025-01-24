@@ -1,7 +1,7 @@
 from typing import Optional
 
-from .objects import ObjectArg, ObjectsArg, resolve_object, resolve_objects
-from .scene import current_frame, selection, selections
+from ..objects import ObjectArg, ObjectsArg, resolve_object, resolve_objects
+from ..scene import current_frame, selections
 
 
 def toggle_object_visibility(
@@ -87,7 +87,7 @@ def show_now(arg: Optional[ObjectsArg] = None, children: bool = True):
     """
     objs = resolve_objects(arg) if arg is not None else selections()
     for obj in objs:
-      show_at(obj, current_frame(), children)
+        show_at(obj, current_frame(), children)
 
 
 def hide_now(arg: Optional[ObjectsArg] = None, children: bool = True):
@@ -102,4 +102,4 @@ def hide_now(arg: Optional[ObjectsArg] = None, children: bool = True):
     """
     objs = resolve_objects(arg) if arg is not None else selections()
     for obj in objs:
-      hide_at(obj, current_frame(), children)
+        hide_at(obj, current_frame(), children)

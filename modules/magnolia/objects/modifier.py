@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import cast, Literal, Optional
 
 import bpy
 
@@ -29,7 +29,9 @@ def apply_subsurf(
     - `control_only`: Whether to skip displaying interior subdivided edges, default true
     """
     obj = resolve_object(arg)
-    modifier = obj.modifiers.new(name or "Subdivision", "SUBSURF")
+    modifier = cast(
+        bpy.types.SubsurfModifier, obj.modifiers.new(name or "Subdivision", "SUBSURF")
+    )
     modifier.render_levels = levels
     modifier.levels = levels if viewport_levels is None else viewport_levels
     modifier.subdivision_type = "CATMULL_CLARK" if use_catmull else "SIMPLE"
@@ -59,9 +61,13 @@ def apply_shrinkwrap(
     Returns: The shrinkwrap modifier
     """
     obj = resolve_object(arg)
-    modifier = obj.modifiers.new(name or "Shrinkwrap", "SHRINKWRAP")
+    modifier = cast(
+        bpy.types.ShrinkwrapModifier,
+        obj.modifiers.new(name or "Shrinkwrap", "SHRINKWRAP"),
+    )
     modifier.target = resolve_object(target_arg)
     modifier.offset = offset
+    return modifier
 
 
 def apply_hook(
@@ -85,7 +91,7 @@ def apply_hook(
     """
     obj = resolve_object(arg)
     target = resolve_object(target_arg)
-    modifier = obj.modifiers.new(name or "Hook", "HOOK")
+    modifier = cast(bpy.types.HookModifier, obj.modifiers.new(name or "Hook", "HOOK"))
     modifier.object = target
     if vertex_indices:
         modifier.vertex_indices_set(vertex_indices)
@@ -96,7 +102,7 @@ def apply_bevel(
     arg: ObjectArg,
     name: Optional[str] = None,
     amount: float = 0.1,
-    affect: str = "EDGES",  # "VERTICES" or "EDGES"
+    affect: Literal["VERTICES", "EDGES"] = "EDGES",
     segments: int = 4,
 ) -> bpy.types.BevelModifier:
     """
@@ -114,7 +120,9 @@ def apply_bevel(
     - `segments`: Number of segments to include in bevel
     """
     obj = resolve_object(arg)
-    modifier = obj.modifiers.new(name or "Bevel", "BEVEL")
+    modifier = cast(
+        bpy.types.BevelModifier, obj.modifiers.new(name or "Bevel", "BEVEL")
+    )
     modifier.affect = affect
     modifier.width = amount
     modifier.segments = segments
@@ -126,5 +134,5 @@ def apply_skin(
     name: Optional[str] = None,
 ) -> bpy.types.SkinModifier:
     obj = resolve_object(arg)
-    modifier = obj.modifiers.new(name or "Skin", "SKIN")
+    modifier = cast(bpy.types.SkinModifier, obj.modifiers.new(name or "Skin", "SKIN"))
     return modifier

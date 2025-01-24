@@ -1,3 +1,5 @@
+from typing import cast
+
 from .objects import ObjectArg, resolve_object
 
 import bpy
@@ -24,7 +26,7 @@ def constrain_child(
     """
     obj = resolve_object(arg)
     target = resolve_object(target_arg)
-    constraint = obj.constraints.new("CHILD_OF")
+    constraint = cast(bpy.types.ChildOfConstraint, obj.constraints.new("CHILD_OF"))
     constraint.target = target
     if clear_inverse:
         constraint.inverse_matrix.identity()

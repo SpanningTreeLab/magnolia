@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import cast, Optional, Union
 
 import bpy
 
@@ -26,14 +26,16 @@ def apply_geonodes(
     obj = resolve_object(arg)
 
     # Create Geometry Nodes modifier
-    modifier = obj.modifiers.new(name or "Geometry Nodes", "NODES")
+    modifier = cast(
+        bpy.types.NodesModifier, obj.modifiers.new(name or "Geometry Nodes", "NODES")
+    )
 
     # Create a new node group
     if nodes == "NEW":
         group = create_geonodes_group(name)
         modifier.node_group = group
     elif nodes is not None:
-        modifier.node_group = nodes
+        modifier.node_group = nodes  # pyright: ignore
 
     return modifier
 
@@ -42,7 +44,12 @@ def create_geonodes_group(name: Optional[str] = None) -> bpy.types.GeometryNodeT
     """
     Creates a new Geometry Nodes node tree.
     """
-    group = bpy.data.node_groups.new(name or "Geometry Nodes", "GeometryNodeTree")
+    group = cast(
+        bpy.types.GeometryNodeTree,
+        bpy.data.node_groups.new(
+            name or "Geometry Nodes", "GeometryNodeTree"  # pyright: ignore
+        ),
+    )
 
     # Create input node and add geometry socket
     input_node = group.nodes.new("NodeGroupInput")

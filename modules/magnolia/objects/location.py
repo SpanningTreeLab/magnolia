@@ -11,8 +11,8 @@ def move_to_object(source_arg: ObjectArg, target_arg: ObjectArg):
     target = resolve_object(target_arg)
 
     # Get absolute positions
-    source_loc = list(source.matrix_world.decompose()[0])
-    target_loc = list(target.matrix_world.decompose()[0])
+    source_loc = list(source.matrix_world.decompose()[0])  # pyright: ignore
+    target_loc = list(target.matrix_world.decompose()[0])  # pyright: ignore
 
     # Get delta in position
     x_diff = target_loc[0] - source_loc[0]
