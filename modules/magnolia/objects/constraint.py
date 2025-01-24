@@ -1,6 +1,6 @@
 from typing import cast
 
-from .objects import ObjectArg, resolve_object
+from .object import ObjectArg, resolve_object
 
 import bpy
 

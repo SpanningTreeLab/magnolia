@@ -1,4 +1,4 @@
-from .objects import ObjectArg, resolve_object
+from .object import ObjectArg, resolve_object
 
 
 def move_to_object(source_arg: ObjectArg, target_arg: ObjectArg):

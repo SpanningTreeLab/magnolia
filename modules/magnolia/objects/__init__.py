@@ -5,7 +5,7 @@ __all__ = [
     "material",
     "mesh",
     "modifier",
-    "objects",
+    "object",
 ]
 
 from .constraint import *
@@ -14,4 +14,4 @@ from .location import *
 from .material import *
 from .mesh import *
 from .modifier import *
-from .objects import *
+from .object import *

@@ -20,7 +20,19 @@ __all__ = [
 
 
 from .animation import *
-from .objects import *
-from .scene import *
+from .animation.visibility import *
 
-from . import slide
+from .objects import *
+from .objects.constraint import *
+from .objects.geonodes import *
+from .objects.location import *
+from .objects.material import *
+from .objects.mesh import *
+from .objects.modifier import *
+from .objects.object import *
+
+from .scene import *
+from .scene.collection import *
+from .scene.context import *
+
+from . import slides

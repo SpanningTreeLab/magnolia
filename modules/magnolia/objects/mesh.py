@@ -5,7 +5,7 @@ import bpy
 from bpy.types import Object
 
 from ..scene import CollectionArg, resolve_collection, selection
-from .objects import ObjectArg, resolve_object
+from .object import ObjectArg, resolve_object
 
 
 # A vertex is represented as a tuple of (x, y, z)

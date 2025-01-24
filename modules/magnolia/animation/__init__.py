@@ -1,3 +1,3 @@
-__all__ = ["animation"]
+__all__ = ["visibility"]
 
-from .animation import *
+from .visibility import *

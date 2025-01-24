@@ -2,7 +2,7 @@ from typing import cast, TypedDict, Union
 
 import bpy
 
-from .objects import ObjectArg, resolve_object
+from .object import ObjectArg, resolve_object
 
 
 # Note: This is an incomplete list of configuration options. As needed, more input properties may

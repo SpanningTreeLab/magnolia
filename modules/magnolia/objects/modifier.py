@@ -2,7 +2,7 @@ from typing import cast, Literal, Optional
 
 import bpy
 
-from .objects import ObjectArg, resolve_object
+from .object import ObjectArg, resolve_object
 
 
 def apply_subsurf(
