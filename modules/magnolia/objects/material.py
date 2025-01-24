@@ -45,7 +45,7 @@ def create_bsdf_material(
 
 def create_emission_material(
     name: str,
-    color: Union[tuple[float, float, float], tuple[float, float, float, tuple]],
+    color: Union[tuple[float, float, float], tuple[float, float, float, float]],
     shadow: str = "OPAQUE",  # "OPAQUE" or "NONE"
 ) -> bpy.types.Material:
     material = bpy.data.materials.new(name=name)
@@ -82,7 +82,7 @@ def get_or_create_bsdf_material(
 
 def get_or_create_emission_material(
     name: str,
-    color: tuple[float, float, float],
+    color: Union[tuple[float, float, float], tuple[float, float, float, float]],
     shadow: str = "OPAQUE",  # "OPAQUE" or "NONE"
 ) -> bpy.types.Material:
     """
