@@ -32,7 +32,9 @@ from .objects.modifier import *
 from .objects.object import *
 
 from .scene import *
+from .scene.camera import *
 from .scene.collection import *
 from .scene.context import *
+from .scene.output import *
 
 from . import slides
