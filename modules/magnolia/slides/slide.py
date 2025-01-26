@@ -8,9 +8,10 @@ from ..scene.camera import create_camera
 from ..scene.collection import create_collection
 from ..scene.output import set_framerate
 from .colors import Color, color_material
+from .position import scale_size, set_slide_dimensions
 
 
-def setup_slide(
+def create_slide(
     color: Color = (255, 255, 255),
     width: int = 3840,
     height: int = 2160,
@@ -32,8 +33,7 @@ def setup_slide(
     set_slide_dimensions(width, height)
 
     # Create slide
-    slide_width = width / 100
-    slide_height = height / 100
+    slide_width, slide_height = scale_size(width, height)
     background_data: MeshData = (
         [
             (0, 0, 0),
@@ -66,21 +66,3 @@ def setup_slide(
 
     # Set framerate
     set_framerate(framerate)
-
-
-def set_slide_dimensions(width: int, height: int):
-    """
-    Sets the dimensions of the slide.
-    """
-    bpy.context.scene.render.resolution_x = width
-    bpy.context.scene.render.resolution_y = height
-
-
-def get_slide_dimensions() -> tuple[int, int]:
-    """
-    Returns the dimensions of the slide.
-    """
-    return (
-        bpy.context.scene.render.resolution_x,
-        bpy.context.scene.render.resolution_y,
-    )

@@ -8,19 +8,24 @@ Color = tuple[int, int, int]
 where each value is in the range [0, 255]."""
 
 
-def color_material(color: Color):
+def color_material(
+    color: Color = (0, 0, 0),
+    name: str | None = None,
+):
     """
     Gets or creates an emission color material.
 
     Arguments:
 
-    - `red`: The red component of the color, 0-255
-    - `green`: The green component of the color, 0-255
-    - `blue`: The blue component of the color, 0-255
+    - `name`: The name of the material.
+      A default name is supplied if none provided.
+    - `color`: The color of the material.
     """
     red, green, blue = color
+    name = name or f"MgColorMat_{red}_{green}_{blue}"
     return get_or_create_emission_material(
-        f"MgSlideColorMat_{red}_{green}_{blue}",
+        name,
         (red / 255, green / 255, blue / 255, 1),
         shadow="NONE",
+        opacity_control=True,
     )
