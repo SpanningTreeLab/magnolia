@@ -72,3 +72,17 @@ def create_geonodes_group(name: Optional[str] = None) -> bpy.types.GeometryNodeT
     )
 
     return group
+
+
+def get_geonodes_group(name: str) -> bpy.types.GeometryNodeTree | None:
+    """
+    Gets a Geometry Nodes node tree by name.
+
+    Arguments:
+
+    - `name`: Name of the node tree to get.
+    """
+    group = bpy.data.node_groups.get(name)
+    if group is not None:
+        return cast(bpy.types.GeometryNodeTree, group)
+    return None

@@ -47,7 +47,10 @@ def create_slide(
     base = create_object_from_mesh_data(
         background_data, name="Background", collection=coll
     )
-    assign_material(base, color_material(color))
+    assign_material(
+        base,
+        color_material(color=color, name="MgSlideBackground", opacity_controls=False),
+    )
     # Disable selection of slide
     base.hide_select = True
 

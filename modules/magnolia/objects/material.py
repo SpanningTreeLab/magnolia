@@ -73,6 +73,9 @@ def create_emission_material(
     material = bpy.data.materials.new(name=name)
     material.use_nodes = True
 
+    if len(color) == 3:
+        color = (*color, 1)
+
     # Create a new emission node
     node_tree = cast(bpy.types.ShaderNodeTree, material.node_tree)
     emission_node = node_tree.nodes.new("ShaderNodeEmission")

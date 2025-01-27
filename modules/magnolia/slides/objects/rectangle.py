@@ -13,7 +13,7 @@ from ..position import Anchor, Position, resolve_position, set_anchor, scale_siz
 def create_rectangle(
     name: str = "Rectangle",
     material: MaterialArg | None = None,
-    position: Position = (200, 200),
+    position: Position = (0.5, 0.5),
     width: float = 100,
     height: float = 100,
     anchor: Anchor = "center",
@@ -30,7 +30,7 @@ def create_rectangle(
     rectangle_data = (
         [
             (0, 0, 0),
-            (0, width, 0),
+            (0, height, 0),
             (width, height, 0),
             (width, 0, 0),
         ],
